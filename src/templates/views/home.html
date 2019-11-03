@@ -185,7 +185,6 @@
     <div class="container-fluid" style="background-image: url(images/climbinge.jpg);padding-top: 10%">
         <h2 style="text-align: center;">Rock climbing Routes</h2>
         <h1 style="text-align: center;">Bangalore</h1>
-        <h1 style="text-align: center;">{{statusval}}</h1>
         <div class="row ">
           <p class="Apply-filters-below-to-shortlist-your-routes text-center">Apply filters below to shortlist your routes</p>
         </div>
@@ -193,15 +192,11 @@
             <div class="col-sm-2">
                 <div class="dropdown">
                 <button type="button" class="btn btn-filter" data-toggle="dropdown">
-                  AREA <span class="caret"></span>
+                  TOWN <span class="caret"></span>
                 </button>
              
                 <ul class="dropdown-menu dropdown-menu-colour">
-                    <li><a href="#">Option1</a></li>
-                    <li><a href="#">Option4</a></li>
-                    <li><a href="#">Option3</a></li>
-                </ul>
-            
+                    <li ng-repeat="town in towns"><a>{{town}}</a></li>          
                 </div>
             </div>
             <div class="col-sm-2">
@@ -212,11 +207,20 @@
              
                 
                 <ul class="dropdown-menu dropdown-menu-colour">
-                    <li><a href="#">Option1</a></li>
-                    <li><a href="#">Option2</a></li>
-                    <li><a href="#">Option3</a></li>
+                    <li ng-repeat="cragsector in cragsectors"><a>{{cragsector}}</a></li>          
                 </ul>
             
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="dropdown">
+                  <button type="button" class="btn btn-filter dropdown-toggle" data-toggle="dropdown">
+                    AREA <span class="caret"></span>
+                  </button>
+        
+                  <ul class="dropdown-menu dropdown-menu-colour">
+                      <li ng-repeat="area in areas"><a>{{area}}</a></li>          
+                  </ul>
                 </div>
             </div>
             <div class="col-sm-2">
@@ -226,9 +230,7 @@
                   </button>
         
                   <ul class="dropdown-menu dropdown-menu-colour">
-                      <li><a href="#">Option1</a></li>
-                      <li><a href="#">Option2</a></li>
-                      <li><a href="#">Option3</a></li>
+                      <li ng-repeat="type in types"><a>{{type}}</a></li>          
                   </ul>
                 </div>
             </div>
@@ -241,9 +243,7 @@
             
         
                   <ul class="dropdown-menu dropdown-menu-colour">
-                      <li><a href="#">Option1</a></li>
-                      <li><a href="#">Option2</a></li>
-                      <li><a href="#">Option3</a></li>
+                      <li ng-repeat="grade in grades"><a>{{grade}}</a></li>          
                   </ul>
 
                 </div>    
@@ -257,16 +257,14 @@
      
         
                   <ul class="dropdown-menu dropdown-menu-colour">
-                      <li><a href="#">Option1</a></li>
-                      <li><a href="#">Option2</a></li>
-                      <li><a href="#">Option3</a></li>
+                      <li ng-repeat="rating in ratings"><a>{{rating}}</a></li>          
                   </ul>
 
                 </div> 
         
             </div>
 
-            <div class="col-sm-2">
+            <!-- <div class="col-sm-2">
                 <div class="dropdown">
                   <button type="button" class="btn btn-filter" data-toggle="dropdown">
                     PITCHES <span class="caret"></span>
@@ -274,14 +272,12 @@
      
         
                   <ul class="dropdown-menu dropdown-menu-colour">
-                      <li><a href="#">Option1</a></li>
-                      <li><a href="#">Option2</a></li>
-                      <li><a href="#">Option3</a></li>
+                      <li ng-repeat="pitch in pitches"><a>{{pitch}}</a></li>          
                   </ul>
 
                 </div>
 
-            </div>
+            </div> -->
 
         </div>    
     </div>
@@ -348,31 +344,24 @@
       <table class="table table-striped">
         <thead>
           <tr class="yellow-text">
-            <th>No.</th>
+            <!-- <th>No.</th> -->
             <th>Name</th>
             <th>Grade</th>
             <th>Type</th>
             <th>Area</th>
-            <th>First Ascent</th>
+            <!-- <th>First Ascent</th> -->
             <th>Rating</th>
             <th>Crag</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody ng-repeat="route in routes">
           <tr>
-            <td>John</td>
-            <td>Doe</td>
-            <td>john@example.com</td>
-          </tr>
-          <tr>
-            <td>Mary</td>
-            <td>Moe</td>
-            <td>mary@example.com</td>
-          </tr>
-          <tr>
-            <td>July</td>
-            <td>Dooley</td>
-            <td>july@example.com</td>
+            <td>{{route.title}}</td>
+            <td>{{route.grade_french}}</td>
+            <td>{{route.route_type}}</td>
+            <td>{{route.area}}</td>
+            <td>{{route.rating}}</td>
+            <td>{{route.crag}}</td>
           </tr>
         </tbody>
       </table>
