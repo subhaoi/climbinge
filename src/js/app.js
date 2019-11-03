@@ -1,5 +1,5 @@
 angular.module('climbingeApp', [
-    'ngRoute'
+    'ngRoute','angularjs-dropdown-multiselect',
 ])
 .config([
     '$routeProvider',

@@ -12,7 +12,7 @@
     <link rel="icon" type="image/png" sizes="16x16" href="https://avathi.com/images/favicon-16x16.png">
     
    
-    
+ <script type="text/javascript" src="angularjs-dropdown-multiselect.js"></script>   
 <style type="text/css">
 .Rock-Climbing-Routes-Bangalore {
   width: 918px;
@@ -190,92 +190,36 @@
         </div>
          <div class="row filter-row" style="text-align: center">
             <div class="col-sm-2">
-                <div class="dropdown">
-                <button type="button" class="btn btn-filter" data-toggle="dropdown">
-                  TOWN <span class="caret"></span>
-                </button>
-             
-                <ul class="dropdown-menu dropdown-menu-colour">
-                    <li ng-repeat="town in towns"><a>{{town}}</a></li>          
-                </div>
+                <div ng-dropdown-multiselect="" class="btn btn-filter dropdown-toggle" options="townsdata" selected-model="townsmodel" extra-settings="townssettings" translation-texts="townscustomTexts"></div>
+    
             </div>
             <div class="col-sm-2">
-                <div class="dropdown">
-                <button type="button" class="btn btn-filter dropdown-toggle" data-toggle="dropdown">
-                  CRAG/SECTOR <span class="caret"></span>
-                </button>
-             
-                
-                <ul class="dropdown-menu dropdown-menu-colour">
-                    <li ng-repeat="cragsector in cragsectors"><a>{{cragsector}}</a></li>          
-                </ul>
-            
-                </div>
+                <div ng-dropdown-multiselect="" class="btn btn-filter dropdown-toggle" options="cragsectorsdata" selected-model="cragsectorsmodel" extra-settings="cragsectorssettings" translation-texts="cragsectorscustomTexts"></div>
+    
             </div>
             <div class="col-sm-2">
-                <div class="dropdown">
-                  <button type="button" class="btn btn-filter dropdown-toggle" data-toggle="dropdown">
-                    AREA <span class="caret"></span>
-                  </button>
-        
-                  <ul class="dropdown-menu dropdown-menu-colour">
-                      <li ng-repeat="area in areas"><a>{{area}}</a></li>          
-                  </ul>
-                </div>
+                <div ng-dropdown-multiselect="" class="btn btn-filter dropdown-toggle" options="areasdata" selected-model="areasmodel" extra-settings="areassettings" translation-texts="areascustomTexts"></div>
+    
             </div>
             <div class="col-sm-2">
-                <div class="dropdown">
-                  <button type="button" class="btn btn-filter dropdown-toggle" data-toggle="dropdown">
-                    TYPE <span class="caret"></span>
-                  </button>
-        
-                  <ul class="dropdown-menu dropdown-menu-colour">
-                      <li ng-repeat="type in types"><a>{{type}}</a></li>          
-                  </ul>
-                </div>
+              <div ng-dropdown-multiselect="" class="btn btn-filter dropdown-toggle" options="typesdata" selected-model="typesmodel" extra-settings="typessettings" translation-texts="typescustomTexts"></div>
+    
             </div>
 
             <div class="col-sm-2">
-                <div class="dropdown">
-                  <button type="button" class="btn btn-filter dropdown-toggle" data-toggle="dropdown">
-                    GRADE <span class="caret"></span>
-                  </button>
-            
-        
-                  <ul class="dropdown-menu dropdown-menu-colour">
-                      <li ng-repeat="grade in grades"><a>{{grade}}</a></li>          
-                  </ul>
-
-                </div>    
+              <div ng-dropdown-multiselect="" class="btn btn-filter dropdown-toggle" options="gradesdata" selected-model="gradesmodel" extra-settings="gradessettings" translation-texts="gradescustomTexts"></div>
           
             </div>
-            <div class="col-sm-2">
-                <div class="dropdown">
-                  <button type="button" class="btn btn-filter dropdown-toggle" data-toggle="dropdown">
-                    RATING <span class="caret"></span>
-                  </button>
-     
-        
-                  <ul class="dropdown-menu dropdown-menu-colour">
-                      <li ng-repeat="rating in ratings"><a>{{rating}}</a></li>          
-                  </ul>
 
-                </div> 
+
+            <div class="col-sm-2">
+                <div ng-dropdown-multiselect="" class="btn btn-filter dropdown-toggle" options="ratingsdata" selected-model="ratingsmodel" extra-settings="ratingssettings" translation-texts="ratingscustomTexts"></div>
         
             </div>
 
             <!-- <div class="col-sm-2">
-                <div class="dropdown">
-                  <button type="button" class="btn btn-filter" data-toggle="dropdown">
-                    PITCHES <span class="caret"></span>
-                  </button>
-     
+                <div ng-dropdown-multiselect="" class="btn btn-filter dropdown-toggle" options="ratingsdata" selected-model="ratingsmodel" extra-settings="ratingssettings" translation-texts="ratingscustomTexts"></div>
         
-                  <ul class="dropdown-menu dropdown-menu-colour">
-                      <li ng-repeat="pitch in pitches"><a>{{pitch}}</a></li>          
-                  </ul>
-
-                </div>
 
             </div> -->
 
@@ -287,6 +231,7 @@
     <div class="container Rectangle-585">
         
         <div class="col-sm-6">
+
           <div class="row">
             <h2 class="contribute-text">Want to contribute</h2>
           </div>
@@ -338,7 +283,6 @@
             </div>     
           </div>
         </div>
-
 
 <div class="container table-container">      
       <table class="table table-striped">
