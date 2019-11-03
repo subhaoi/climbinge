@@ -2,7 +2,10 @@ angular.module('climbingeApp')
 .controller('HomeCtrl', ['$scope','$http',function($scope, $http) {
         $scope.home = "This is the homepage";
         
-        var towns = []; 
+        var towns = []; var selectedTownList = []; var selectedCragList = []; var selectedAreaList = []; var selectedTypeList = [];
+
+        var cragmouseoverevent = false; var areamouseoverevent = false; var typemouseoverevent = false; var grademouseoverevent = false;
+
         $scope.townscustomTexts = {buttonDefaultText: 'Towns'}
 
         $scope.cragsectorscustomTexts = {buttonDefaultText: 'Crag/Sectors'}
@@ -28,14 +31,12 @@ angular.module('climbingeApp')
 
 
 
-
-        
         $scope.cragsectors = townroutes.cragList;
         $scope.areas = cragroutes.areaList;
         $scope.types = arearoutes.routeTypeList;
         $scope.grades = typeroutes.gradeFrenchList;
         var ratings = [1,2,3,4,5]
-        $scope.routes = typeroutes.routeList;
+        // $scope.routes = typeroutes.routeList;
         
         $scope.ratingsmodel = [];
         ratings = ratings.map(x => {
@@ -48,7 +49,7 @@ angular.module('climbingeApp')
         	url: 'http://139.59.22.177:8080/AVATHI_API/rest/ajaxRoute/getRouteList',
         	data: {"route":"routeList"},
         	headers: {'Content-Type': 'application/json; charset=utf-8'}
-        }
+        };
         $http(req).then(function success(response){
 	        $scope.statusval = "Post Data Submitted Successfully!";
             var towns = response.data.townList;
@@ -69,18 +70,148 @@ angular.module('climbingeApp')
             $scope.townssettings = {}; 
         });
         
-		// $http.post(url, JSON.stringify(data), config)
-		// .then(function (response) {
+        $scope.populatecragsectors = function(){
+            if (cragmouseoverevent == false & $scope.townsmodel.length != 0){
+                var a = $scope.townsmodel;
+                for (var key in a){
+                    selectedTownList.push(a[key]['label'])}
 
-		// $scope.statusval = "Post Data Submitted Successfully!";
+                var req = {
+                    method: 'POST',
+                    url: 'http://139.59.22.177:8080/AVATHI_API/rest/ajaxRoute/getRouteListByTown',
+                    data: {"townReqList" : selectedTownList},
+                    headers: {'Content-Type': 'application/json; charset=utf-8'}
+                };
+                $http(req).then(function success(response){
+                $scope.statusval = "Post Data Submitted Successfully!";
+                var crags = response.data.cragList;
+                $scope.cragsectorsmodel = [];
+                crags = crags.map(x => {
+                                    return({id:crags.indexOf(x) + 1,label: x});
+                                    });
+                $scope.cragsectorsdata = crags;
+                $scope.cragsectorssettings = {}; 
+                cragmouseoverevent = true;
+                },
+                function(response){
+                    crags = townroutes.cragList;
+                    $scope.cragsectorsmodel = [];
+                    crags = crags.map(x => {
+                                        return({id:crags.indexOf(x) + 1,label: x});
+                                        });
+                    $scope.cragsectorsdata = crags;
+                    $scope.cragsectorssettings = {}; 
+                    cragmouseoverevent = true;
+                });
+            }
+        };
+        $scope.populateareas = function(){
+            if (areamouseoverevent == false & $scope.cragsectorsmodel.length != 0){
+                var a = $scope.cragsectorsmodel;
+                for (var key in a){
+                    selectedCragList.push(a[key]['label'])}
 
-		// }
-		// , function (response) {
-		// 	$scope.statusval = "failed!";
+                var req = {
+                    method: 'POST',
+                    url: "http://139.59.22.177:8080/AVATHI_API/rest/ajaxRoute/getRouteListByCrag",
+                    data: {"townReqList" : selectedTownList, "cragReqList": selectedCragList},
+                    headers: {'Content-Type': 'application/json; charset=utf-8'}
+                };
+                $http(req).then(function success(response){
+                $scope.statusval = "Post Data Submitted Successfully!";
+                var areas = response.data.areaList;
+                $scope.areasmodel = [];
+                areas = areas.map(x => {
+                                    return({id:areas.indexOf(x) + 1,label: x});
+                                    });
+                $scope.areasdata = areas;
+                $scope.areassettings = {}; 
+                areamouseoverevent = true;
+                },
+                function(response){
+                    areas = cragroutes.areaList;
+                    $scope.areasmodel = [];
+                    areas = areas.map(x => {
+                                        return({id:areas.indexOf(x) + 1,label: x});
+                                        });
+                    $scope.areasdata = areas;
+                    $scope.areassettings = {}; 
+                    areamouseoverevent = true;
+                });
+            }
+        };
+        $scope.populatetypes = function(){
+            if (typemouseoverevent == false & $scope.areasmodel.length != 0){
+                var a = $scope.areasmodel;
+                for (var key in a){
+                    selectedAreaList.push(a[key]['label'])}
 
-		// }
-		// );
+                var req = {
+                    method: 'POST',
+                    url: "http://139.59.22.177:8080/AVATHI_API/rest/ajaxRoute/getRouteListByArea",
+                    data: {"townReqList" : selectedTownList, "cragReqList": selectedCragList,
+                         "areaReqList": selectedAreaList},
+                    headers: {'Content-Type': 'application/json; charset=utf-8'}
+                };
+                $http(req).then(function success(response){
+                $scope.statusval = "Post Data Submitted Successfully!";
+                var types = response.data.routeTypeList;
+                $scope.typesmodel = [];
+                types = types.map(x => {
+                                    return({id:types.indexOf(x) + 1,label: x});
+                                    });
+                $scope.typesdata = types;
+                $scope.typessettings = {}; 
+                typemouseoverevent = true;
+                },
+                function(response){
+                    types = arearoutes.routeTypeList;
+                    $scope.typesmodel = [];
+                    types = types.map(x => {
+                                        return({id:types.indexOf(x) + 1,label: x});
+                                        });
+                    $scope.typesdata = types;
+                    $scope.typessettings = {}; 
+                    typemouseoverevent = true;
+                });
+            }
+        };
+        $scope.populategrades = function(){
+            if (grademouseoverevent == false & $scope.typesmodel.length != 0){
+                var a = $scope.typesmodel;
+                for (var key in a){
+                    selectedTypeList.push(a[key]['label'])}
 
+                var req = {
+                    method: 'POST',
+                    url: "http://139.59.22.177:8080/AVATHI_API/rest/ajaxRoute/getRouteListByType",
+                    data: {"townReqList" : selectedTownList, "cragReqList": selectedCragList,
+                         "areaReqList": selectedAreaList, "type": selectedTypeList},
+                    headers: {'Content-Type': 'application/json; charset=utf-8'}
+                };
+                $http(req).then(function success(response){
+                $scope.statusval = "Post Data Submitted Successfully!";
+                var grades = response.data.gradeFrenchList;
+                $scope.gradesmodel = [];
+                grades = grades.map(x => {
+                                    return({id:grades.indexOf(x) + 1,label: x});
+                                    });
+                $scope.gradesdata = grades;
+                $scope.gradessettings = {}; 
+                grademouseoverevent = true;
+                },
+                function(response){
+                    grades = typeroutes.gradeFrenchList;
+                    $scope.gradesmodel = [];
+                    grades = grades.map(x => {
+                                        return({id:grades.indexOf(x) + 1,label: x});
+                                        });
+                    $scope.gradesdata = grades;
+                    $scope.gradessettings = {}; 
+                    grademouseoverevent = true;
+                });
+            }
+        };
 	}
 ]);
 
