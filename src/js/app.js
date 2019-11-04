@@ -1,9 +1,10 @@
-angular.module('climbingeApp', [
+var app = angular.module('climbingeApp', [
     'ngRoute','angularjs-dropdown-multiselect',
-])
-.config([
-    '$routeProvider',
-    function($routeProvider) {
+]);
+
+app.config([
+    '$routeProvider','$locationProvider',
+    function($routeProvider, $locationProvider) {
         $routeProvider
             .when('/', {
                 templateUrl: 'views/home.html',
@@ -14,4 +15,5 @@ angular.module('climbingeApp', [
             	controller: 'routeprofileCtrl'
             });
     }
+
 ]);

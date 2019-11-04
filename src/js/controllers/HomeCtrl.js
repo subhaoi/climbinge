@@ -1,8 +1,14 @@
 angular.module('climbingeApp')
-.controller('HomeCtrl', ['$scope','$http',function($scope, $http) {
+.controller('HomeCtrl', ['$scope','$http','$location', function($scope, $http, $location) {
         $scope.home = "This is the homepage";
-        
+
         var towns = []; var selectedTownList = []; var selectedCragList = []; var selectedAreaList = []; var selectedTypeList = [];
+        var selectedGradeList = []; var selectedRatingList = [];
+        $scope.gradesmodel = []; $scope.townsmodel = []; $scope.cragsectorsmodel = []; $scope.areasmodel = [];
+        $scope.typesmodel = []; $scope.ratingsmodel = [];
+        $scope.selection = false;
+
+
 
         var cragmouseoverevent = false; var areamouseoverevent = false; var typemouseoverevent = false; var grademouseoverevent = false;
 
@@ -27,18 +33,17 @@ angular.module('climbingeApp')
         var typeroutes = {"routeList": [{"area": "Savandurga Hill", "is_active": true, "town": "Savandurga", "latitude": "12.91917", "rating": 4, "grade_french": "4c", "grade_dirty": "5.7+ X", "grade_yds": "5.7", "title": "Deepavali", "primary_key": 1, "main_city": "Bangalore", "route_type": "Trad", "pitches": 8, "crag": "Savandurga", "longitude": "77.29473"}, {"area": "Savandurga Hill", "is_active": true, "town": "Savandurga", "latitude": "12.91917", "rating": 4, "grade_french": "5c", "grade_dirty": "5.10a PG13", "grade_yds": "5.10a", "title": "Beladingalu", "primary_key": 10, "main_city": "Bangalore", "route_type": "Trad", "pitches": 7, "crag": "Savandurga", "longitude": "77.29473"}, {"area": "Cave area", "is_active": true, "town": "Avathi", "latitude": "13.30094", "rating": 4, "grade_french": "7b", "grade_dirty": "5.12b/c", "grade_yds": "5.12b", "title": "Yabadabadoo", "primary_key": 6, "main_city": "Bangalore", "route_type": "Trad", "pitches": 1, "crag": "Avathi", "longitude": "77.70949"}], "gradeFrenchList": ["4b", "4c", "5a", "5b", "5c", "6a", "6a+", "6b", "6b+", "6c", "6c+", "7a", "7a+", "7b", "7c+"]};
 
         var graderoutes = {'routeList': [{'area': 'Savandurga Hill', 'is_active': true, 'town': 'Savandurga', 'latitude': '12.91917', 'rating': 4, 'grade_french': '4c', 'grade_dirty': '5.7+ X', 'grade_yds': '5.7', 'title': 'Deepavali', 'primary_key': 1, 'main_city': 'Bangalore', 'route_type': 'Trad', 'pitches': 8, 'crag': 'Savandurga', 'longitude': '77.29473'}, {'area': 'Savandurga Hill', 'is_active': true, 'town': 'Savandurga', 'latitude': '12.91917', 'rating': 4, 'grade_french': '5c', 'grade_dirty': '5.10a PG13', 'grade_yds': '5.10a', 'title': 'Beladingalu', 'primary_key': 10, 'main_city': 'Bangalore', 'route_type': 'Trad', 'pitches': 7, 'crag': 'Savandurga', 'longitude': '77.29473'}]};
-        var raterroutes = {'routeList': [{'area': 'Savandurga Hill', 'is_active': true, 'town': 'Savandurga', 'latitude': '12.91917', 'rating': 4, 'grade_french': '4c', 'grade_dirty': '5.7+ X', 'grade_yds': '5.7', 'title': 'Deepavali', 'primary_key': 1, 'main_city': 'Bangalore', 'route_type': 'Trad', 'pitches': 8, 'crag': 'Savandurga', 'longitude': '77.29473'}, {'area': 'Savandurga Hill', 'is_active': true, 'town': 'Savandurga', 'latitude': '12.91917', 'rating': 4, 'grade_french': '5c', 'grade_dirty': '5.10a PG13', 'grade_yds': '5.10a', 'title': 'Beladingalu', 'primary_key': 10, 'main_city': 'Bangalore', 'route_type': 'Trad', 'pitches': 7, 'crag': 'Savandurga', 'longitude': '77.29473'}]};
+        var ratingroutes = {'routeList': [{'area': 'Savandurga Hill', 'is_active': true, 'town': 'Savandurga', 'latitude': '12.91917', 'rating': 4, 'grade_french': '4c', 'grade_dirty': '5.7+ X', 'grade_yds': '5.7', 'title': 'Deepavali', 'primary_key': 1, 'main_city': 'Bangalore', 'route_type': 'Trad', 'pitches': 8, 'crag': 'Savandurga', 'longitude': '77.29473'}, {'area': 'Savandurga Hill', 'is_active': true, 'town': 'Savandurga', 'latitude': '12.91917', 'rating': 4, 'grade_french': '5c', 'grade_dirty': '5.10a PG13', 'grade_yds': '5.10a', 'title': 'Beladingalu', 'primary_key': 10, 'main_city': 'Bangalore', 'route_type': 'Trad', 'pitches': 7, 'crag': 'Savandurga', 'longitude': '77.29473'}]};
 
 
 
-        $scope.cragsectors = townroutes.cragList;
-        $scope.areas = cragroutes.areaList;
-        $scope.types = arearoutes.routeTypeList;
-        $scope.grades = typeroutes.gradeFrenchList;
+        // $scope.cragsectors = townroutes.cragList;
+        // $scope.areas = cragroutes.areaList;
+        // $scope.types = arearoutes.routeTypeList;
+        // $scope.grades = typeroutes.gradeFrenchList;
         var ratings = [1,2,3,4,5]
         // $scope.routes = typeroutes.routeList;
         
-        $scope.ratingsmodel = [];
         ratings = ratings.map(x => {
                             return({id:ratings.indexOf(x) + 1,label: x});
                             });
@@ -137,6 +142,7 @@ angular.module('climbingeApp')
                     $scope.areasdata = areas;
                     $scope.areassettings = {}; 
                     areamouseoverevent = true;
+                    $scope.selection = true;
                 });
             }
         };
@@ -161,7 +167,7 @@ angular.module('climbingeApp')
                                     return({id:types.indexOf(x) + 1,label: x});
                                     });
                 $scope.typesdata = types;
-                $scope.typessettings = {}; 
+                $scope.typessettings = { selectionLimit: 1, }; 
                 typemouseoverevent = true;
                 },
                 function(response){
@@ -171,7 +177,7 @@ angular.module('climbingeApp')
                                         return({id:types.indexOf(x) + 1,label: x});
                                         });
                     $scope.typesdata = types;
-                    $scope.typessettings = {}; 
+                    $scope.typessettings = { selectionLimit: 1, }; 
                     typemouseoverevent = true;
                 });
             }
@@ -209,6 +215,129 @@ angular.module('climbingeApp')
                     $scope.gradesdata = grades;
                     $scope.gradessettings = {}; 
                     grademouseoverevent = true;
+                });
+            }
+        };
+        $scope.populatetable =function(){
+            try {
+                var a = $scope.townsmodel;
+                for (var key in a){
+                    selectedTownList.push(a[key]['label'])}
+                }    
+            catch {}
+            try {
+                var a = $scope.cragsectorsmodel;
+                for (var key in a){
+                    selectedCragList.push(a[key]['label'])}    
+            }
+            catch {}
+            try {
+                var a = $scope.areasmodel;
+                for (var key in a){
+                    selectedAreaList.push(a[key]['label'])}    
+            }
+            catch {}
+            try {
+                var a = $scope.typesmodel;
+                for (var key in a){
+                    selectedTypeList.push(a[key]['label'])}    
+            }
+            catch {}
+            try {
+                var a = $scope.gradesmodel;
+                for (var key in a){
+                    selectedGradeList.push(a[key]['label'])}    
+            }
+            catch {}
+            try {
+                var a = $scope.ratingsmodel;
+                for (var key in a){
+                    selectedRatingList.push(a[key]['label'])}
+            }
+            catch {}            
+            if ($scope.ratingsmodel.length>0){
+                if($scope.gradesmodel.length>0){
+                    var req = {
+                    method: 'POST',
+                    url: "http://139.59.22.177:8080/AVATHI_API/rest/ajaxRoute/getRouteListByRatingAndPitches",
+                    data: {"townReqList" : selectedTownList, "cragReqList": selectedCragList,
+                         "areaReqList": selectedAreaList, "type": selectedTypeList[0], "gradeReqList" :selectedGradeList,
+                            "RatingReqList": selectedRatingList},
+                    headers: {'Content-Type': 'application/json; charset=utf-8'}
+                    };
+                    $http(req).then(function success(response){
+                    $scope.statusval = "Post Data Submitted Successfully!";
+                    $scope.routes = response.data.routeList;
+                                    },
+                    function(response){
+                        $scope.routes = ratingroutes.routeList;
+                    });
+                }
+                else{
+                    var req = {
+                    method: 'POST',
+                    url: "http://139.59.22.177:8080/AVATHI_API/rest/ajaxRoute/getRouteListByRatingAndPitches",
+                    data: {"townReqList" : selectedTownList, "cragReqList": selectedCragList,
+                         "areaReqList": selectedAreaList, "RatingReqList": selectedRatingList},
+                    headers: {'Content-Type': 'application/json; charset=utf-8'}
+                    };
+                    $http(req).then(function success(response){
+                    $scope.statusval = "Post Data Submitted Successfully!";
+                    $scope.routes = response.data.routeList;
+                                    },
+                    function(response){
+                        $scope.routes = ratingroutes.routeList;
+                    });
+                }
+            }
+            else if($scope.townsmodel.length>0 & $scope.cragsectorsmodel.length>0 & $scope.areasmodel.length>0
+             & $scope.typesmodel.length>0 & $scope.gradesmodel.length>0){
+                var req = {
+                    method: 'POST',
+                    url: "http://139.59.22.177:8080/AVATHI_API/rest/ajaxRoute/getRouteListByGrade",
+                    data: {"townReqList" : selectedTownList, "cragReqList": selectedCragList,
+                         "areaReqList": selectedAreaList,"type": selectedTypeList[0], "gradeReqList" :selectedGradeList},
+                    headers: {'Content-Type': 'application/json; charset=utf-8'}
+                };
+                $http(req).then(function success(response){
+                $scope.statusval = "Post Data Submitted Successfully!";
+                $scope.routes = response.data.routeList;
+                                },
+                function(response){
+                    $scope.routes = graderoutes.routeList;
+                });
+            }
+            else if($scope.townsmodel.length>0 & $scope.cragsectorsmodel.length>0 & $scope.areasmodel.length>0 
+                & $scope.typesmodel.length>0){
+                var req = {
+                    method: 'POST',
+                    url: "http://139.59.22.177:8080/AVATHI_API/rest/ajaxRoute/getRouteListByType",
+                    data: {"townReqList" : selectedTownList, "cragReqList": selectedCragList,
+                         "areaReqList": selectedAreaList, "type": selectedTypeList[0]},
+                    headers: {'Content-Type': 'application/json; charset=utf-8'}
+                };
+                $http(req).then(function success(response){
+                $scope.statusval = "Post Data Submitted Successfully!";
+                $scope.routes = response.data.routeList;
+                                },
+                function(response){
+                    $scope.routes = typeroutes.routeList;
+                });
+            }
+            else if($scope.townsmodel.length>0 & $scope.cragsectorsmodel.length>0 & $scope.areasmodel.length>0){
+                var req = {
+                    method: 'POST',
+                    url: "http://139.59.22.177:8080/AVATHI_API/rest/ajaxRoute/getRouteListByArea",
+                    data: {"townReqList" : selectedTownList, "cragReqList": selectedCragList,
+                         "areaReqList": selectedAreaList},
+                    headers: {'Content-Type': 'application/json; charset=utf-8'}
+                };
+                $http(req).then(function success(response){
+                $scope.statusval = "Post Data Submitted Successfully!";
+                $scope.routes = response.data.routeList;
+                                },
+                function(response){
+                    $scope.routes = arearoutes.routeList;
                 });
             }
         };

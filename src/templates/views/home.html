@@ -42,8 +42,8 @@
     outline:none;
 }
 .filter-row {
-    padding-left: 172px;
-    padding-right: 172px;
+    padding-left: 1%;
+    padding-right: 1%;
 }
 .btn-filter{
     background-color: Transparent;
@@ -130,6 +130,16 @@
 .dropdown-menu-colour{
   background-color: #f2f1f0;
 }
+ @media screen and (min-width: 0px) and (max-width: 700px) {
+      #div-mobile {    display: block;  }
+      #div-desktop {    display: none;  }
+    }
+
+    @media screen and (min-width: 701px) and (max-width: 3000px) {
+      #div-mobile {    display: none;  }
+      #div-desktop {    display: block;  }
+
+}
 </style>
 
 <title>Avathi | Rock climbing in Bangalore | Bouldering in Bangalore</title>
@@ -183,37 +193,38 @@
     </div>
 
     <div class="container-fluid" style="background-image: url(images/climbinge.jpg);padding-top: 10%">
+      <h2 id="div-mobile">&nbsp;</h2>
         <h2 style="text-align: center;">Rock climbing Routes</h2>
         <h1 style="text-align: center;">Bangalore</h1>
-        <div class="row ">
+        <div class="row">
           <p class="Apply-filters-below-to-shortlist-your-routes text-center">Apply filters below to shortlist your routes</p>
         </div>
-         <div class="row filter-row" style="text-align: center">
-            <div class="col-sm-2">
-                <div ng-dropdown-multiselect="" class="btn btn-filter dropdown-toggle" options="townsdata" selected-model="townsmodel" extra-settings="townssettings" translation-texts="townscustomTexts"></div>
+         <div class="row" style="text-align: center">
+            <div class="col-md-2 col-sm-12">
+                <div ng-dropdown-multiselect=""  options="townsdata" selected-model="townsmodel" extra-settings="townssettings" translation-texts="townscustomTexts"></div>
     
             </div>
-            <div class="col-sm-2">
-                <div ng-dropdown-multiselect="" ng-mouseover="populatecragsectors()" class="btn btn-filter dropdown-toggle" options="cragsectorsdata" selected-model="cragsectorsmodel" extra-settings="cragsectorssettings" translation-texts="cragsectorscustomTexts"></div>
+            <div class="col-md-2 col-sm-12">
+                <div ng-dropdown-multiselect="" ng-mouseover="populatecragsectors()" options="cragsectorsdata" selected-model="cragsectorsmodel" extra-settings="cragsectorssettings" translation-texts="cragsectorscustomTexts"></div>
     
             </div>
-            <div class="col-sm-2">
-                <div ng-dropdown-multiselect="" ng-mouseover="populateareas()" class="btn btn-filter dropdown-toggle" options="areasdata" selected-model="areasmodel" extra-settings="areassettings" translation-texts="areascustomTexts"></div>
+            <div class="col-md-2 col-sm-12">
+                <div ng-dropdown-multiselect="" ng-mouseover="populateareas()" options="areasdata" selected-model="areasmodel" extra-settings="areassettings" translation-texts="areascustomTexts"></div>
     
             </div>
-            <div class="col-sm-2">
-              <div ng-dropdown-multiselect="" ng-mouseover="populatetypes()" class="btn btn-filter dropdown-toggle" options="typesdata" selected-model="typesmodel" extra-settings="typessettings" translation-texts="typescustomTexts"></div>
+            <div class="col-md-2 col-sm-12">
+              <div ng-dropdown-multiselect="" ng-mouseover="populatetypes()"  options="typesdata" selected-model="typesmodel" extra-settings="typessettings" translation-texts="typescustomTexts"></div>
     
             </div>
 
-            <div class="col-sm-2">
-              <div ng-dropdown-multiselect="" ng-mouseover="populategrades()" class="btn btn-filter dropdown-toggle" options="gradesdata" selected-model="gradesmodel" extra-settings="gradessettings" translation-texts="gradescustomTexts"></div>
+            <div class="col-md-2 col-sm-12">
+              <div ng-dropdown-multiselect="" ng-mouseover="populategrades()" options="gradesdata" selected-model="gradesmodel" extra-settings="gradessettings" translation-texts="gradescustomTexts"></div>
           
             </div>
 
 
-            <div class="col-sm-2">
-                <div ng-dropdown-multiselect="" class="btn btn-filter dropdown-toggle" options="ratingsdata" selected-model="ratingsmodel" extra-settings="ratingssettings" translation-texts="ratingscustomTexts"></div>
+            <div class="col-md-2 col-sm-12">
+                <div ng-dropdown-multiselect="" options="ratingsdata" selected-model="ratingsmodel" extra-settings="ratingssettings" translation-texts="ratingscustomTexts"></div>
         
             </div>
 
@@ -222,7 +233,10 @@
         
 
             </div> -->
-
+            <h3>&nbsp;</h3>
+            <div>
+              <a class="btn Rectangle-584 yellow-text" ng-show="selection" ng-click="populatetable()" >Submit</a>
+            </div>
         </div>    
     </div>
 
@@ -298,8 +312,9 @@
             <th>Crag</th>
           </tr>
         </thead>
-        <tbody ng-repeat="route in routes">
-          <tr>
+          <tr ng-repeat="route in routes">
+            <!-- ng-style="{ 'background': (isHover ? '#ffd042' : 'transparent') }" ng-mouseenter="isHover = true;" ng-mouseleave="isHover = false;" ng-click="openRouteProfile(route)"
+             -->
             <td>{{route.title}}</td>
             <td>{{route.grade_french}}</td>
             <td>{{route.route_type}}</td>
@@ -307,7 +322,6 @@
             <td>{{route.rating}}</td>
             <td>{{route.crag}}</td>
           </tr>
-        </tbody>
       </table>
         </div>
     </div>
